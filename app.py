@@ -100,14 +100,15 @@ else:
 
     for keys,values in dict_of_spike_file_contents.items(): # lopp through all dictionary items that were loaded from the pickle files
         for x in values: # loop through all items in values of pickle dictionary
-            st.markdown("## Network Regime: "+str(keys))
+            st.markdown("## Network Regime: "+str(keys)) # Only gets called 4 times therefore this only gets called 4 times
             #st.markdown(v)
-            if radio_out == "tb":
+            if radio_out == "tb": # Check if table radio button is selected
                 st.markdown("### The spike raster plot matrix as a table (column items cell index, row items spike times):")
-                wrangle_frame(x[0])
-            if radio_out == "spk":
+                wrangle_frame(x[0]) # pass x[0] to wrangle_frame function which is dict_of_spike_file_contents{key:value[x][0]} x points to one of pickle files which are tied to the key 0 points to a portion of the pickle file
+            if radio_out == "spk": # Check if spk button is selected
                 plot_raster(x[1])
             spikes_in_list_of_lists_of_lists.append(wrangle(x[1]))
+            st.markdown(x[1])
     
 
 def compute_ISI(spks:[])->[]:
