@@ -74,44 +74,8 @@ def plot_raster(spike_dict:dict)->None:
     plt.eventplot(list_of_lists)
     st.pyplot(fig)
 
-def wrangle(spike_dict:dict)->[[]]:
-    list_of_lists = []
-    maxt=0
-    for ind,(neuron_id,times) in enumerate(spike_dict.items()):
-        list_of_lists.append(times)
-        if np.max(times)> maxt:
-            maxt = np.max(times)
-    st.markdown("#### The Network Dimensions are as follows, Number of cells:")
-    st.markdown(np.shape(list_of_lists))
-    st.markdown("## Simulation Time Duration (ms):")
-    st.markdown(maxt)
-    return list_of_lists
-
-
-
-
-uploaded_file = st.sidebar.file_uploader("Upload Spike Trains To Compute CV on.")
-if uploaded_file is not None:
-    spks_dict_of_dicts = pickle.loads(uploaded_file.read())
-    st.write("spikes loaded")
-    st.markdown(spks_dict_of_dicts)
-else:
-    spikes_in_list_of_lists_of_lists = []
-
-    for keys,values in dict_of_spike_file_contents.items(): # lopp through all dictionary items that were loaded from the pickle files
-        for x in values: # loop through all items in values of pickle dictionary
-            st.markdown("## Network Regime: "+str(keys)) # Only gets called 4 times therefore this only gets called 4 times
-            #st.markdown(v)
-            if radio_out == "tb": # Check if table radio button is selected
-                st.markdown("### The spike raster plot matrix as a table (column items cell index, row items spike times):")
-                wrangle_frame(x[0]) # pass x[0] to wrangle_frame function which is dict_of_spike_file_contents{key:value[x][0]} x points to one of pickle files which are tied to the key 0 points to a portion of the pickle file
-            if radio_out == "spk": # Check if spk button is selected
-                plot_raster(x[1])
-            spikes_in_list_of_lists_of_lists.append(wrangle(x[1]))
-            
-
-
 def compute_ISI(spks:[])->[]:
+    st.markdown("### The Inter-spike intervals:")
     """
     """
     # hint spks is a 2D matrix, get a 1D Vector per neuron-id spike train.
@@ -146,11 +110,46 @@ def compute_ISI_CV(spks:[])->[]:
     # hint
     # [x for ind,x in enumerate(spks)]
     ISI_CV = np.asarray([np.std(neuron) / np.mean(neuron) for neuron in ISIs])
+    st.markdown("Inter-spike Coefficient of Variation")
     st.markdown(ISI_CV)
+    st.markdown("Mean Coffecient of variation across all cells")
     st.markdown(average(ISI_CV))
     return ISI_CV
-    # return a vector of scalars: ISI_CV
+    # return a vector of scalars: ISI_CV 
+    
+def wrangle(spike_dict:dict)->[[]]:
+    list_of_lists = []
+    maxt=0
+    for ind,(neuron_id,times) in enumerate(spike_dict.items()):
+        list_of_lists.append(times)
+        if np.max(times)> maxt:
+            maxt = np.max(times)
+    st.markdown("#### The Network Dimensions are as follows, Number of cells:")
+    st.markdown(np.shape(list_of_lists))
+    st.markdown("## Simulation Time Duration (ms):")
+    st.markdown(maxt)
+    compute_ISI_CV(list_of_lists)
+    return list_of_lists
 
-spikeISI_data = []
-for spikes in spikes_in_list_of_lists_of_lists:
-    spikeISI_data.append(compute_ISI_CV(spikes))
+
+
+uploaded_file = st.sidebar.file_uploader("Upload Spike Trains To Compute CV on.")
+if uploaded_file is not None:
+    spks_dict_of_dicts = pickle.loads(uploaded_file.read())
+    st.write("spikes loaded")
+    st.markdown(spks_dict_of_dicts)
+else:
+    spikes_in_list_of_lists_of_lists = []
+
+    for keys,values in dict_of_spike_file_contents.items(): # lopp through all dictionary items that were loaded from the pickle files
+        for x in values: # loop through all items in values of pickle dictionary
+            st.markdown("## Network Regime: "+str(keys)) # Only gets called 4 times therefore this only gets called 4 times
+            #st.markdown(v)
+            if radio_out == "tb": # Check if table radio button is selected
+                st.markdown("### The spike raster plot matrix as a table (column items cell index, row items spike times):")
+                wrangle_frame(x[0]) # pass x[0] to wrangle_frame function which is dict_of_spike_file_contents{key:value[x][0]} x points to one of pickle files which are tied to the key 0 points to a portion of the pickle file
+            if radio_out == "spk": # Check if spk button is selected
+                plot_raster(x[1])
+            spikes_in_list_of_lists_of_lists.append(wrangle(x[1]))
+            
+
