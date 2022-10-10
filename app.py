@@ -35,13 +35,13 @@ def load_files(files:[])->dict:
     dict_of_spike_file_contents.setdefault('critical', [])
     dict_of_spike_file_contents.setdefault('critical_fixed', [])
 
-    for f in files:
-        with open(str(f),"rb") as fto:
-            file_contents = pickle.load(fto)
-            if len(file_contents[1].keys())>98:
-                if str("pickle_0_") in f:
-                    if radio_out_r=="balanced":
-                        dict_of_spike_file_contents["balanced"].append(file_contents)
+    for f in files: # Loop through all pickle filenames
+        with open(str(f),"rb") as fto: # open pickle file as fto
+            file_contents = pickle.load(fto) # Load Pickle file in variable file_contents
+            if len(file_contents[1].keys())>98: # Check that there are atleast 98 keys in file contents
+                if str("pickle_0_") in f: # Check that filename is pickle_0_ to load the correct graphs
+                    if radio_out_r=="balanced": #Check that the required radio button is pressed
+                        dict_of_spike_file_contents["balanced"].append(file_contents) #Append the file contents of the current file to the balanced key in dict_of_spike_file_contents
                 if str("pickle_1_") in f:
                     if radio_out_r=="critical":
                         dict_of_spike_file_contents["critical"].append(file_contents)
@@ -51,7 +51,7 @@ def load_files(files:[])->dict:
     return dict_of_spike_file_contents
 
 dict_of_spike_file_contents = load_files(files)
-
+st.markdown(dict_of_spike_file_contents)
 
 def wrangle_frame(frame)->None:
     for c in frame.columns:
@@ -109,8 +109,7 @@ else:
             if radio_out == "spk":
                 plot_raster(x[1])
             spikes_in_list_of_lists_of_lists.append(wrangle(x[1]))
-    st.markdown(type(spikes_in_list_of_lists_of_lists))
-    st.markdown(spikes_in_list_of_lists_of_lists)
+    
 
 def compute_ISI(spks:[])->[]:
     """
