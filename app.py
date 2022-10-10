@@ -108,8 +108,8 @@ else:
             if radio_out == "spk": # Check if spk button is selected
                 plot_raster(x[1])
             spikes_in_list_of_lists_of_lists.append(wrangle(x[1]))
-            st.markdown(x[1])
-    
+            
+spikes_in_list_of_lists_of_lists[0]
 
 def compute_ISI(spks:[])->[]:
     """
