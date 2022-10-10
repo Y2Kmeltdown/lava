@@ -120,18 +120,17 @@ def compute_ISI(spks:[])->[]:
     ISI = []
     for neurons in spks:
         ISI.append([j-i for i, j in zip(neurons[:-1], neurons[1:])])
-    return np.asarray(ISI)
+    return ISI
     # st.markdown(spkList)
     # st.pyplot()
     # pass
     # return an array of ISI_arrays.
 
-st.markdown(spikes_in_list_of_lists_of_lists[0][0])
-spikeISI_in_list_of_arrays = []
+spikeISI_in_list_of_lists_of_lists = []
 for spikes in spikes_in_list_of_lists_of_lists:
-    spikeISI_in_list_of_arrays.append(compute_ISI(spikes))
+    spikeISI_in_list_of_lists_of_lists.append(compute_ISI(spikes))
 
-st.markdown(spikeISI_in_list_of_arrays[0])
+st.markdown(spikeISI_in_list_of_lists_of_lists[0])
         
 
 
