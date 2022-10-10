@@ -73,7 +73,6 @@ def plot_raster(spike_dict:dict)->None:
         list_of_lists.append(times)
     plt.eventplot(list_of_lists)
     st.pyplot(fig)
-    st.markdown(list_of_lists)
 
 def wrangle(spike_dict:dict)->[[]]:
     list_of_lists = []
@@ -118,9 +117,13 @@ def compute_ISI(spks:[])->[]:
     # hint spks is a 2D matrix, get a 1D Vector per neuron-id spike train.
     # [x for ind,x in enumerate(spks)]
     # spkList = [x for ind,x in enumerate(spks)]
+    fig = plt.figure()
     ISI = []
     for neurons in spks:
         ISI.append([j-i for i, j in zip(neurons[:-1], neurons[1:])])
+        
+    plt.eventplot(ISI)
+    st.pyplot(fig)
     return ISI
     # st.markdown(spkList)
     # st.pyplot()
@@ -131,7 +134,6 @@ spikeISI_in_list_of_lists_of_lists = []
 for spikes in spikes_in_list_of_lists_of_lists:
     spikeISI_in_list_of_lists_of_lists.append(compute_ISI(spikes))
 
-st.markdown(spikeISI_in_list_of_lists_of_lists[0])
         
 
 
