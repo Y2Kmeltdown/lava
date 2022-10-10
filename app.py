@@ -73,6 +73,7 @@ def plot_raster(spike_dict:dict)->None:
         list_of_lists.append(times)
     plt.eventplot(list_of_lists)
     st.pyplot(fig)
+    st.markdown(list_of_lists)
 
 def wrangle(spike_dict:dict)->[[]]:
     list_of_lists = []
