@@ -109,7 +109,7 @@ else:
                 plot_raster(x[1])
             spikes_in_list_of_lists_of_lists.append(wrangle(x[1]))
             
-st.markdown(spikes_in_list_of_lists_of_lists[0])
+
 
 def compute_ISI(spks:[])->[]:
     """
@@ -125,6 +125,18 @@ def compute_ISI(spks:[])->[]:
     # st.pyplot()
     # pass
     # return an array of ISI_arrays.
+
+spikeISI_in_list_of_lists_of_arrays = []
+for spikefile in spikes_in_list_of_lists_of_lists:
+    spikeISI = []
+    for neuron in spikefile:
+        spikeISI.append(compute_ISI(neuron))
+    spikeISI_in_list_of_lists_of_lists.append(spikeISI)
+
+st.markdown(spikeISI_in_list_of_lists_of_arrays[0])
+        
+
+
 
 
 def compute_ISI_CV(spks:[])->[]:
