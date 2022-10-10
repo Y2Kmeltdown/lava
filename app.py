@@ -136,15 +136,13 @@ def wrangle(spike_dict:dict)->[[]]:
 uploaded_file = st.sidebar.file_uploader("Upload Spike Trains To Compute CV on.")
 if uploaded_file is not None:
     spks_dict_of_dicts = pickle.loads(uploaded_file.read())
-    st.markdown(uploaded_file.name)
+    st.markdown("spikes loaded from: "+uploaded_file.name)
     if str("pickle_0_") in uploaded_file.name:
         st.markdown("## Network Regime: balanced")
     if str("pickle_1_") in uploaded_file.name:
         st.markdown("## Network Regime: critical")
     if str("pickle_2_") in uploaded_file.name:
         st.markdown("## Network Regime: critical_fixed")
-    st.write("spikes loaded")
-    st.markdown("## Network Regime: "+str(keys)) # Only gets called 4 times therefore this only gets called 4 times
     if radio_out == "tb": # Check if table radio button is selected
         st.markdown("### The spike raster plot matrix as a table (column items cell index, row items spike times):")
         wrangle_frame(spks_dict_of_dicts[0]) # pass x[0] to wrangle_frame function which is dict_of_spike_file_contents{key:value[x][0]} x points to one of pickle files which are tied to the key 0 points to a portion of the pickle file
