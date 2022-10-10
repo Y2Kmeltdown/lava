@@ -130,10 +130,12 @@ def compute_ISI(spks:[])->[]:
     # pass
     # return an array of ISI_arrays.
 
-
-        
-
-
+def average(ISI_CV:[])->float:
+    """
+    """
+    # use numpy to mean the vector of ISI_CVs
+    # return a scalar.
+    return np.mean(ISI_CV) 
 
 
 def compute_ISI_CV(spks:[])->[]:
@@ -142,19 +144,12 @@ def compute_ISI_CV(spks:[])->[]:
     """
     # hint
     # [x for ind,x in enumerate(spks)]
-    ISI_CV = [np.std(neuron, ddof=1) / np.mean(neuron) for neuron in ISIs]
+    ISI_CV = np.asarray([np.std(neuron) / np.mean(neuron) for neuron in ISIs])
     st.markdown(ISI_CV)
+    st.markdown(average(ISI_CV)
     return ISI_CV
     # return a vector of scalars: ISI_CV
 
-
-def average(ISI_CV:[])->float:
-    """
-    """
-    # use numpy to mean the vector of ISI_CVs
-    # return a scalar.
-    pass
-
-spikeISI_in_list_of_lists_of_lists = []
+spikeISI_data = []
 for spikes in spikes_in_list_of_lists_of_lists:
-    spikeISI_in_list_of_lists_of_lists.append(compute_ISI_CV(spikes))
+    spikeISI_data.append(compute_ISI_CV(spikes))
