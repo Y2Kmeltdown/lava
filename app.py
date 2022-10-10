@@ -126,14 +126,12 @@ def compute_ISI(spks:[])->[]:
     # pass
     # return an array of ISI_arrays.
 
-spikeISI_in_list_of_lists_of_arrays = []
-for spikefile in spikes_in_list_of_lists_of_lists:
-    spikeISI = []
-    for neuron in spikefile:
-        spikeISI.append(compute_ISI(neuron))
-    spikeISI_in_list_of_lists_of_lists.append(spikeISI)
+st.markdown(spikes_in_list_of_lists_of_lists[0][0])
+spikeISI_in_list_of_arrays = []
+for spikes in spikes_in_list_of_lists_of_lists:
+    spikeISI_in_list_of_arrays.append(compute_ISI(spikes))
 
-st.markdown(spikeISI_in_list_of_lists_of_arrays[0])
+st.markdown(spikeISI_in_list_of_arrays[0])
         
 
 
