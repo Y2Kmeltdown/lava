@@ -137,6 +137,7 @@ uploaded_file = st.sidebar.file_uploader("Upload Spike Trains To Compute CV on."
 if uploaded_file is not None:
     spks_dict_of_dicts = pickle.loads(uploaded_file.read())
     st.write("spikes loaded")
+    st.markdown(type(spks_dict_of_dicts))
     st.markdown(spks_dict_of_dicts)
 else:
     spikes_in_list_of_lists_of_lists = []
