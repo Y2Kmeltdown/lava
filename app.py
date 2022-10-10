@@ -143,6 +143,7 @@ def compute_ISI_CV(spks:[])->[]:
     # hint
     # [x for ind,x in enumerate(spks)]
     ISI_CV = [np.std(neuron, ddof=1) / np.mean(neuron) for neuron in ISIs]
+    st.markdown(ISI_CV)
     return ISI_CV
     # return a vector of scalars: ISI_CV
 
