@@ -51,7 +51,6 @@ def load_files(files:[])->dict:
     return dict_of_spike_file_contents
 
 dict_of_spike_file_contents = load_files(files)
-st.markdown(dict_of_spike_file_contents)
 
 def wrangle_frame(frame)->None:
     for c in frame.columns:
@@ -99,8 +98,8 @@ if uploaded_file is not None:
 else:
     spikes_in_list_of_lists_of_lists = []
 
-    for keys,values in dict_of_spike_file_contents.items():
-        for x in values:
+    for keys,values in dict_of_spike_file_contents.items(): # lopp through all dictionary items that were loaded from the pickle files
+        for x in values: # loop through all items in values of pickle dictionary
             st.markdown("## Network Regime: "+str(keys))
             #st.markdown(v)
             if radio_out == "tb":
