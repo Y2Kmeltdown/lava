@@ -120,7 +120,7 @@ def compute_ISI(spks:[])->[]:
     fig = plt.figure()
     ISI = []
     for neurons in spks:
-        ISI.append([j-i for i, j in zip(neurons[:-1], neurons[1:])])
+        ISI.append(np.asarray([j-i for i, j in zip(neurons[:-1], neurons[1:])]))
         
     plt.eventplot(ISI)
     st.pyplot(fig)
@@ -130,9 +130,6 @@ def compute_ISI(spks:[])->[]:
     # pass
     # return an array of ISI_arrays.
 
-spikeISI_in_list_of_lists_of_lists = []
-for spikes in spikes_in_list_of_lists_of_lists:
-    spikeISI_in_list_of_lists_of_lists.append(compute_ISI(spikes))
 
         
 
@@ -145,7 +142,8 @@ def compute_ISI_CV(spks:[])->[]:
     """
     # hint
     # [x for ind,x in enumerate(spks)]
-    pass
+    ISI_CV = [np.std(neuron, ddof=1) / np.mean(neuron) for neuron in ISIs]
+    return ISI_CV
     # return a vector of scalars: ISI_CV
 
 
@@ -155,3 +153,7 @@ def average(ISI_CV:[])->float:
     # use numpy to mean the vector of ISI_CVs
     # return a scalar.
     pass
+
+spikeISI_in_list_of_lists_of_lists = []
+for spikes in spikes_in_list_of_lists_of_lists:
+    spikeISI_in_list_of_lists_of_lists.append(compute_ISI_CV(spikes))
