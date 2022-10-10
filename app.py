@@ -135,13 +135,14 @@ def wrangle(spike_dict:dict)->[[]]:
 
 uploaded_file = st.sidebar.file_uploader("Upload Spike Trains To Compute CV on.")
 if uploaded_file is not None:
+    spks_dict_of_dicts = pickle.loads(uploaded_file.read())
+    st.markdown(uploaded_file)
     if str("pickle_0_") in uploaded_file:
         st.markdown("## Network Regime: balanced")
     if str("pickle_1_") in uploaded_file:
         st.markdown("## Network Regime: critical")
     if str("pickle_2_") in uploaded_file:
         st.markdown("## Network Regime: critical_fixed")
-    spks_dict_of_dicts = pickle.loads(uploaded_file.read())
     st.write("spikes loaded")
     st.markdown("## Network Regime: "+str(keys)) # Only gets called 4 times therefore this only gets called 4 times
     if radio_out == "tb": # Check if table radio button is selected
