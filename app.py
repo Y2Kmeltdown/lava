@@ -110,9 +110,9 @@ def compute_ISI_CV(spks:[])->[]:
     # hint
     # [x for ind,x in enumerate(spks)]
     ISI_CV = np.asarray([np.std(neuron) / np.mean(neuron) for neuron in ISIs])
-    st.markdown("Inter-spike Coefficient of Variation")
+    st.markdown("### Inter-spike Coefficient of Variation")
     st.markdown(ISI_CV)
-    st.markdown("Mean Coffecient of variation across all cells")
+    st.markdown("### Mean Coffecient of variation across all cells")
     st.markdown(average(ISI_CV))
     return ISI_CV
     # return a vector of scalars: ISI_CV 
