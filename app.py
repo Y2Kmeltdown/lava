@@ -135,6 +135,7 @@ def average(ISI_CV:[])->float:
     """
     # use numpy to mean the vector of ISI_CVs
     # return a scalar.
+    ISI_CV = ISI_CV[~np.isnan(ISI_CV)]
     return np.mean(ISI_CV) 
 
 
@@ -145,7 +146,6 @@ def compute_ISI_CV(spks:[])->[]:
     # hint
     # [x for ind,x in enumerate(spks)]
     ISI_CV = np.asarray([np.std(neuron) / np.mean(neuron) for neuron in ISIs])
-    ISI_CV = ISI_CV[~np.isnan(ISI_CV)]
     st.markdown(ISI_CV)
     st.markdown(average(ISI_CV))
     return ISI_CV
